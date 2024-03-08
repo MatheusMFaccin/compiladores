@@ -1,6 +1,6 @@
 q0,q1,q2,q3,q4
-+-.0123456789
-q1:inteiro,q3:fracionario
++-.0123456789abcdefghijklmnopqrstuvwxyz
+q1:inteiro,q3:fracionario, q5:variavel
 q0:+-:q4
 q0:0123456789:q1
 q1:0123456789:q1
@@ -8,3 +8,5 @@ q1:.:q2
 q2:0123456789:q3
 q3:0123456789:q3
 q4:0123456789:q1
+q0:abcdefghijklmnopqrstuvwxyz:q5
+q5:abcdefghijklmnopqrstuvwxyz:q5

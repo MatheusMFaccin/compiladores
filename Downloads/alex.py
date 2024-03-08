@@ -32,19 +32,38 @@ def carregar_automato(arquivo):
     return automato
 
 def exec_afd(linha,automato,estado_atual):
+    contador = 0
     for c in linha:
-        print(c,"   ",estado_atual)
+        
         if  c not in automato.simbolos:
             print("invalido")
-        for regra in automato.regrasTransicao:
-            if regra.find(estado_atual) !=-1:
+        else:
+
+            for regra in automato.regrasTransicao:
                 r = regra.split(":")
-                if r[1].find(c)!=-1:
+                if len(r) > 3:
+                    r[1] +=':'
+                    r[1] += r[2]
+                    r.remove(r[2])
+                if r[0] == estado_atual and r[1].find(c) !=-1:
                     estado_atual = r[2]
+                elif r[0] == estado_atual and r[1].find(c) == -1:
+                    print(estado_atual,"  ",c)
+                elif contador == len(automato.regrasTransicao):
+                    print("invalido  ",c)
+
+                else:
+                    continue
+                print(contador,"    ",len(automato.regrasTransicao))
+                contador+=1
+               
     if estado_atual == "q1":
         print(linha," é inteiro")
-    else:
+    elif estado_atual ==  "q3":
         print(linha," é fracionario")
+    elif estado_atual == "q5":
+        print(linha," é variavel")
+        
     
 
             
