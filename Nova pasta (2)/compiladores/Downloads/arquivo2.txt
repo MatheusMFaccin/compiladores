@@ -1,0 +1,173 @@
+I'd probably use fgets() to read whole lines, and then strstr() to find the search string. If strstr() returns 0, write the line out. Otherwise, don't.
+
+https: 
+https: 
+https: 
+https: 
+
+https: 
+
+https: 
+
+
+https: 
+
+
+
+----------------- re-escrita -----------------------
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+
+
+
+
+
+
+void checar_comentario (char) ;
+void comentario_bloco () ;
+void comentario_linha () ;
+
+ 
+FILE *arquivo_original;
+FILE *arquivo_output;
+
+int main(void)
+{
+    char c;
+    char fileDir[144];
+
+     
+    printf("Seja bem-vindo ao removedor de comentarios, insira abaxo o diretorio do arquivo para ser processado.\n");
+    printf("Diretorio Arquivo (Ex: C:\\exemplo.txt): ");
+    fscanf(stdin, "%s", fileDir);
+
+	 
+    arquivo_output   = fopen ("C:\\Users\\laboratorio\\Downloads\\RemovedorComentario\\saida.sco","w");
+
+     
+    if ((arquivo_original = fopen (fileDir,"r")) == NULL){
+       printf("Erro! Nao foi possivel encontrar o arquivo especificado.\n");
+       exit(1);
+   }
+
+	 
+	printf("\n\nArquivo encontrado e aberto com sucesso, removendo comentarios...\n");
+    while((c=fgetc(arquivo_original))!=EOF){
+		checar_comentario(c);  
+	}
+
+     
+    fclose(arquivo_original);
+    fclose(arquivo_output);
+
+     
+	printf("\n\nPronto! Os comentarios do arquivo inserido foram removidos com sucesso.\n");
+	printf("Procure pelo arquivo 'saida.sco' na raiz do projeto para ver o resultado.\n");
+
+    return 0;
+}
+
+ 
+void checar_comentario(char c)
+{
+    char d;
+
+	 
+    if(c == '/'){
+
+		 
+		if((d=fgetc(arquivo_original))=='*'){
+		  comentario_bloco();
+		}
+
+		 
+        else if(d == '/'){
+          comentario_linha();
+        }
+
+		 
+        else{
+          fputc(c,arquivo_output);
+          fputc(d,arquivo_output);
+        }
+
+    }
+
+	 
+    else{
+	  fputc(c,arquivo_output);
+	}
+}
+
+ 
+void comentario_bloco(){
+ char d,e;
+
+     
+
+
+
+
+
+
+
+         
+        if(d=='\n'){
+            fputc('\n',arquivo_output);
+        }
+
+         
+        if(d=='*'){
+
+             
+            e=fgetc(arquivo_original);
+
+             
+            if(e=='/'){
+                return;
+            }
+        }
+   }
+}
+
+ 
+void comentario_linha(){
+ char d;
+
+     
+    while((d=fgetc(arquivo_original))!=EOF){
+
+        
+
+
+
+
+         
+        if(d=='\n'){
+             
+            fputc('\n',arquivo_output);
+            return;
+        }
+    }
+}
+    while((d=fgetc(arquivo_original))!=EOF){
+
+        
+
+
+
+
+         
+        if(d=='\n'){
+             
+            fputc('\n',arquivo_output);
+            return;
+        }
+    }
+}
+
+    }
+}
