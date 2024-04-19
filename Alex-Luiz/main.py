@@ -28,7 +28,8 @@ def carregar_automato(arquivo):
         elif contador == 1:
             for c in linha:
                 simbolos.append(c.replace("\n", ""))
-
+            simbolos.pop()
+            
         # 2: Estados Finais
         elif contador == 2:
             linha = linha.strip()
@@ -109,3 +110,6 @@ lerlinhar(file, automato)
 
 file_automato.close()
 file.close()
+
+
+
