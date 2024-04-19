@@ -1,1 +1,4 @@
-int x = 10;
+void main(){
+    float x = -3.1415;
+    print(x);
+}

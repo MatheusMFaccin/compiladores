@@ -29,7 +29,7 @@ def carregar_automato(arquivo):
             for c in linha:
                 simbolos.append(c.replace("\n", ""))
             simbolos.pop()
-            
+
         # 2: Estados Finais
         elif contador == 2:
             linha = linha.strip()
@@ -52,7 +52,6 @@ def carregar_automato(arquivo):
     automato = automatos(estados, simbolos, estadosFinais, regrasTransicao)
     return automato
 
-
 def achaRegra(estado_atual, c, lista):
     for regra in automato.regrasTransicao:
         r = regra.split(":")
@@ -65,12 +64,27 @@ def achaRegra(estado_atual, c, lista):
             return estado_atual, True, lista
     print(estado_atual, "     ", c)
     return estado_atual, False, lista
+def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos):
+    id = 0
 
+    estado_atual, temRegra, lista = achaRegra(estado_atual, c, lista)
+
+    if temRegra == False:
+
+        listaSimbolos.append(simbolos(id, lista, automato.estadosFinais[estado_atual]))
+        lista = []
+        id += 1
+        temRegra = True
+        estado_atual = 'q0'
+    else:
+        lista.append(c)
+
+    return  estado_atual,temRegra,lista
 
 def exec_afd(caracteres, automato, estado_atual):
     temRegra = True
     lista = []
-    id = 0
+    
     listaSimbolos = []
 
     for c in caracteres:
@@ -78,18 +92,8 @@ def exec_afd(caracteres, automato, estado_atual):
         if c not in automato.simbolos:
             print("invalido")
         else:
+            tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos)
 
-            estado_atual, temRegra, lista = achaRegra(estado_atual, c, lista)
-
-            if temRegra == False:
-
-                listaSimbolos.append(simbolos(id, lista, automato.estadosFinais[estado_atual]))
-                lista = []
-                id += 1
-                temRegra = True
-                estado_atual = "q0"
-            else:
-                lista.append(c)
 
     for simbolo in listaSimbolos:
         print(simbolo.id, "        ", simbolo.token, "        ", simbolo.tipo)
