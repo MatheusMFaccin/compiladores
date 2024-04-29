@@ -64,6 +64,7 @@ def achaRegra(estado_atual, c, lista):
             return estado_atual, True, lista
     print(estado_atual, "     ", c)
     return estado_atual, False, lista
+
 def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos):
     id = 0
 
@@ -76,11 +77,13 @@ def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos):
         id += 1
         temRegra = True
         estado_atual = 'q0'
+        return estado_atual,temRegra,listaSimbolos,lista,c
+
     else:
         lista.append(c)
 
-    return  estado_atual,temRegra,lista
-
+    return estado_atual,temRegra,listaSimbolos,lista,c
+    
 def exec_afd(caracteres, automato, estado_atual):
     temRegra = True
     lista = []
@@ -90,9 +93,14 @@ def exec_afd(caracteres, automato, estado_atual):
     for c in caracteres:
 
         if c not in automato.simbolos:
+            print(c)
             print("invalido")
         else:
-            tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos)
+          estado_atual,temRegra,listaSimbolos,lista,c = tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos)
+          if estado_atual == "q0":
+              estado_atual,temRegra,listaSimbolos,lista,c = tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos)
+          else:continue
+              
 
 
     for simbolo in listaSimbolos:
@@ -114,6 +122,5 @@ lerlinhar(file, automato)
 
 file_automato.close()
 file.close()
-
 
 
