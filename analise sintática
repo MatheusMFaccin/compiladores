@@ -1,0 +1,36 @@
+d -> [tipo] [nv] [pv] | [tipo] [nv] [sa] [valor] [pv]
+
+tipo -> int | char | float | double
+
+valor -> digito | valorDigito
+
+digito -> 0|1|2|3|4|5|6|7|8|9
+
+nv -> caract | caractDigito |
+
+caract -> _|a|b|....|z|A|....|Z
+
+SA -> = 
+
+PV -> ; 
+
+condição -> | = | > | < | => | <= | ==
+
+codigo -> [d] || [tipo] || [valor] || [digito] || [nv] || [caract] || [sa] || [pv] || [se] ||
+[codigo] + [d] || [codigo] + [tipo] ||[codigo] + [valor] || [codigo] + [digito] || [codigo] + [nv] || 
+[codigo] + [caract] || [codigo] + [sa] || [codigo] + [pv] || [codigo] + [se] 
+
+abreChaves -> {
+
+fechaChaves -> }
+
+abreParenteses -> (
+
+fechaParenteses -> )
+
+Svalor -> valor || nv
+
+
+se -> [if] [abreParenteses] [Svalor] [condição] [Svalor] [fechaParenteses] [abreChaves] [codigo] [fechaChaves] ||
+	[if] [abreParenteses] [Svalor] [condição] [Svalor] [fechaParenteses] [abreChaves] [codigo] [fechaChaves] [else] [abreChaves] [codigo] [fechaChaves]
+
