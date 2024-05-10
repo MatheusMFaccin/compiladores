@@ -16,10 +16,6 @@ PV -> ;
 
 condição -> | = | > | < | => | <= | ==
 
-codigo -> [d] || [tipo] || [valor] || [digito] || [nv] || [caract] || [sa] || [pv] || [se] ||
-[codigo] + [d] || [codigo] + [tipo] ||[codigo] + [valor] || [codigo] + [digito] || [codigo] + [nv] || 
-[codigo] + [caract] || [codigo] + [sa] || [codigo] + [pv] || [codigo] + [se] 
-
 abreChaves -> {
 
 fechaChaves -> }
@@ -30,7 +26,11 @@ fechaParenteses -> )
 
 Svalor -> valor || nv
 
+bloco -> [d] || [tipo] || [valor] || [digito] || [nv] || [caract] || [sa] || [pv] || [se] ||
+[bloco] + [d] || [bloco] + [tipo] ||[bloco] + [valor] || [bloco] + [digito] || [bloco] + [nv] || 
+[bloco] + [caract] || [bloco] + [sa] || [bloco] + [pv] || [bloco] + [se] 
 
-se -> [if] [abreParenteses] [Svalor] [condição] [Svalor] [fechaParenteses] [abreChaves] [codigo] [fechaChaves] ||
-	[if] [abreParenteses] [Svalor] [condição] [Svalor] [fechaParenteses] [abreChaves] [codigo] [fechaChaves] [else] [abreChaves] [codigo] [fechaChaves]
+
+se -> [if] [abreParenteses] [Svalor] [condição] [Svalor] [fechaParenteses] [abreChaves] [bloco] [fechaChaves] ||
+	[se] + [else] [abreChaves] [bloco] [fechaChaves]
 
