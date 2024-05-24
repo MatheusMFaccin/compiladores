@@ -8,10 +8,11 @@ class automatos:
        
 
 class simbolos:
-    def __init__(self, id, token, tipo):
+    def __init__(self, id, token, tipo,linha):
         self.id = id
         self.token = token
         self.tipo = tipo
+        self.linha = linha
 
 def carregar_automato(arquivo):
     estados = []
@@ -55,9 +56,6 @@ def achaRegra(estado_atual, c):
 
     for regra in automato.regrasTransicao:
         r = regra.split(":")
-        if c.id == "14":
-            print(c.tipo)
-            print(r[1])
         padrao = r'\b{}\b'.format(re.escape(c.tipo.strip()))
         if len(r) > 3:
             r[1] += ':'
@@ -67,7 +65,7 @@ def achaRegra(estado_atual, c):
             estado_atual = r[2]
             temRegra = True
             return estado_atual, temRegra
-    print(estado_atual, "     ", c.token,"      ",c.tipo)
+    
     return estado_atual, temRegra
 
 
@@ -82,17 +80,17 @@ def exec_afd(automato, estado_atual,listaSimbolos):
           if temRegra == False and estado_atual == "q3":
               estado_atual = "q0"
           elif temRegra == False and estado_atual != "q3" :
-              print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo)
+              print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo," LINHA: ",c.linha)
               erroSintaxe = True
               break    
           if estado_atual == "q0":
               estado_atual,temRegra = achaRegra(estado_atual,c)
           if temRegra == False and estado_atual != "q3":
-              print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo)   
+              print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo," LINHA: ",c.linha)   
           else:continue
     if erroSintaxe == True:
         for simbolos in listaSimbolosErrados:
-            print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo)
+            print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo," LINHA: ",c.linha)
     elif estado_atual not in automato.estadosFinais:
         print("o codigo não terminou com ponto e virgula")
     else:
@@ -103,7 +101,7 @@ def exec_afd(automato, estado_atual,listaSimbolos):
     
 def lerlinhar(linhas, automato):
     id = 0
-   
+    
     estado_atual = "q0"
     lista_simbolos = []
     print('------------ Lendo linhas ------------')
@@ -112,10 +110,11 @@ def lerlinhar(linhas, automato):
         id = linha_dividida[0]
         caracteres = eval(linha_dividida[1])
         tipo = linha_dividida[2]
+        linha = linha_dividida[3]
         palavra = ''.join(caracteres)
         if palavra in automato.palavrasReservadas:
             tipo = palavra
-        lista_simbolos.append(simbolos(id=id, token=caracteres,tipo=tipo))
+        lista_simbolos.append(simbolos(id=id, token=caracteres,tipo=tipo,linha=linha))
     exec_afd(automato,estado_atual,lista_simbolos)
         
 
