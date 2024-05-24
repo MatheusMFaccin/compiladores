@@ -6,10 +6,11 @@ class automatos:
         self.regrasTransicao = regrasTransicao
 
 class simbolos:
-    def __init__(self, id, token, tipo):
+    def __init__(self, id, token, tipo,linha):
         self.id = id
         self.token = token
         self.tipo = tipo
+        self.linha = linha
 
 def carregar_automato(arquivo):
     estados = []
@@ -65,7 +66,7 @@ def achaRegra(estado_atual, c, lista):
     print(estado_atual, "     ", c)
     return estado_atual, False, lista
 
-def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos,id,caracteres):
+def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos,id,caracteres,contador_linha):
     
 
     estado_atual, temRegra, lista = achaRegra(estado_atual, c, lista)
@@ -79,7 +80,7 @@ def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos,id,caracteres):
         
             if id == 63:
                 print("")
-            listaSimbolos.append(simbolos( id = id ,token = lista, tipo = automato.estadosFinais[estado_atual]))
+            listaSimbolos.append(simbolos( id = id ,token = lista, tipo = automato.estadosFinais[estado_atual],linha=contador_linha))
             lista = []
             id += 1
             temRegra = True
@@ -88,7 +89,7 @@ def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos,id,caracteres):
     
     elif temRegra == True and caracteres.index(c)+3 > len(caracteres):
         lista.append(c)
-        listaSimbolos.append(simbolos( id = id ,token = lista, tipo = automato.estadosFinais[estado_atual]))
+        listaSimbolos.append(simbolos( id = id ,token = lista, tipo = automato.estadosFinais[estado_atual],linha=contador_linha))
         lista = []
         id += 1
         temRegra = True
@@ -102,7 +103,7 @@ def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos,id,caracteres):
 
     return estado_atual,temRegra,listaSimbolos,lista,c,id
     
-def exec_afd(caracteres, automato, estado_atual,listaSimbolos,id):
+def exec_afd(caracteres, automato, estado_atual,listaSimbolos,id,contador_linha):
     temRegra = True
     lista = []
     
@@ -112,9 +113,9 @@ def exec_afd(caracteres, automato, estado_atual,listaSimbolos,id):
             print(c)
             print("invalido")
         else:
-          estado_atual,temRegra,listaSimbolos,lista,c,id = tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos, id,caracteres)
+          estado_atual,temRegra,listaSimbolos,lista,c,id = tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos, id,caracteres,contador_linha)
           if estado_atual == "q0":
-              estado_atual,temRegra,listaSimbolos,lista,c,id = tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos,id,caracteres)
+              estado_atual,temRegra,listaSimbolos,lista,c,id = tabelaSimbolos(lista, temRegra, estado_atual, c, listaSimbolos,id,caracteres,contador_linha)
           else:continue
     print(id)  
         
@@ -123,17 +124,20 @@ def exec_afd(caracteres, automato, estado_atual,listaSimbolos,id):
     
 def lerlinhar(linhas, automato):
     id = 0
+    contador_linha = 1
     estado_atual = automato.estados[0]
     print('------------ Lendo linhas ------------')
     listaSimbolos = []
     for linha in linhas:
-        listaSimbolos,id = exec_afd(linha, automato, estado_atual,listaSimbolos,id)
+        listaSimbolos,id = exec_afd(linha, automato, estado_atual,listaSimbolos,id,contador_linha)
         estado_atual = "q0"
+        contador_linha+=1
     f = open("outputfile.txt","w")
     for simbolo in listaSimbolos:
-        print(simbolo.id, "     ", simbolo.token, "        ", simbolo.tipo)
         
-        f.write(str(simbolo.id)+ ":"+ str(simbolo.token)+ ":"+str(simbolo.tipo)+"\n")
+        print(simbolo.id, "     ", simbolo.token, "        ", simbolo.tipo,"        ",simbolo.linha)
+        
+        f.write(str(simbolo.id)+ ":"+ str(simbolo.token)+ ":"+str(simbolo.tipo)+":"+str(simbolo.linha)+"\n")
         
     f.close()
 
@@ -145,4 +149,3 @@ lerlinhar(file, automato)
 
 file_automato.close()
 file.close()
-
