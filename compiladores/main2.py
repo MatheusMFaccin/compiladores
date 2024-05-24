@@ -74,10 +74,12 @@ def exec_afd(automato, estado_atual,listaSimbolos):
     erroSintaxe = False
     listaSimbolosErrados = []
     for c in listaSimbolos:
-
+          if c.id == "3":
+              print("")
         
           estado_atual,temRegra= achaRegra(estado_atual,c)
           if temRegra == False and estado_atual == "q3":
+              print("Sintaxe correta token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo," LINHA: ",c.linha)
               estado_atual = "q0"
           elif temRegra == False and estado_atual != "q3" :
               print("erro no token de ID : ",c.id," TOKEN: ",c.token,"  TIPO: ",c.tipo," LINHA: ",c.linha)
@@ -94,7 +96,7 @@ def exec_afd(automato, estado_atual,listaSimbolos):
     elif estado_atual not in automato.estadosFinais:
         print("o codigo não terminou com ponto e virgula")
     else:
-        print("sintaxe valida")
+        print("sintaxe totalmente validada")
 
     
     
@@ -112,6 +114,7 @@ def lerlinhar(linhas, automato):
         tipo = linha_dividida[2]
         linha = linha_dividida[3]
         palavra = ''.join(caracteres)
+
         if palavra in automato.palavrasReservadas:
             tipo = palavra
         lista_simbolos.append(simbolos(id=id, token=caracteres,tipo=tipo,linha=linha))
