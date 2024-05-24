@@ -80,7 +80,8 @@ def tabelaSimbolos(lista,temRegra,estado_atual,c,listaSimbolos,id,caracteres,con
         
             if id == 63:
                 print("")
-            listaSimbolos.append(simbolos( id = id ,token = lista, tipo = automato.estadosFinais[estado_atual],linha=contador_linha))
+            if len(lista) != 0:
+                listaSimbolos.append(simbolos( id = id ,token = lista, tipo = automato.estadosFinais[estado_atual],linha=contador_linha))
             lista = []
             id += 1
             temRegra = True
