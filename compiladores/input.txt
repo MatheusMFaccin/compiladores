@@ -1,3 +1,0 @@
-int numero_alunos = 30;
-  float nota1,, nota2, nota3;
-  float media_final;
