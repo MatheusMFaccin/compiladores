@@ -1,0 +1,38 @@
+q0,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q20,q21,q22,q23
++-._0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz; =,<>!{}()&|
+q1:inteiro,q3:fracionario,q4:OpAr,q5:nomevar,q6:satrib,q7:pv,q8:espaco_branco,q9:virgula,q10:apar,q11:fpar:,q12:ach,q13:fch,q14:sinalCompara,q15:conetivo,q16:inicio_sinal,q17:virgula,q18:acol,q19:fcol,q20:OpAr,q21:OpAr,q22:sinalIncremento,q23:sinalDecremento
+q0:/*:q4
+q0:+:q20
+q0:-:q21
+q20:+:q22
+q20:-:q23
+q0:0123456789:q1
+q1:0123456789:q1
+q1:.:q2
+q2:0123456789:q3
+q3:0123456789:q3
+q4:0123456789:q1
+q0:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_:q5
+q5:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789:q5
+q0:=:q6
+q0:;:q7
+q0: :q8
+q0:,:q9
+q0:(:q10
+q0:):q11
+q0:{:q12
+q0:}:q13
+q0:!:q16
+q0:>:q14
+q0:<:q14
+q6:=:q14
+q14:=:q14
+q16:=:q14
+q0:&:q16
+q16:&:q15
+q0:|:q16
+q16:|:q15
+q0:,:q17
+q0:[:q18
+q0:]:q19
+q0: :q8
